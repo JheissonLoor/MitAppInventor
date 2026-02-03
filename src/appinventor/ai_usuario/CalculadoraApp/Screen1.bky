@@ -1,0 +1,771 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <!-- ============================================== -->
+  <!-- BLOQUE: Boton Sumar - Click                    -->
+  <!-- Suma los dos numeros y muestra el resultado    -->
+  <!-- ============================================== -->
+  <block type="component_event" id="sumar_click" x="0" y="0">
+    <mutation component_type="Button" instance_name="ButtonSumar" event_name="Click"/>
+    <field name="COMPONENT_SELECTOR">ButtonSumar</field>
+    <statement name="DO">
+      <!-- Verificar que los campos no estan vacios -->
+      <block type="controls_if" id="sumar_if">
+        <mutation elseif="0" else="1"/>
+        <value name="IF0">
+          <block type="logic_operation" id="sumar_and">
+            <field name="OP">AND</field>
+            <value name="A">
+              <block type="logic_negate" id="sumar_not1">
+                <value name="BOOL">
+                  <block type="text_isEmpty" id="sumar_empty1">
+                    <value name="VALUE">
+                      <block type="component_get" id="sumar_get_txt1">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_negate" id="sumar_not2">
+                <value name="BOOL">
+                  <block type="text_isEmpty" id="sumar_empty2">
+                    <value name="VALUE">
+                      <block type="component_get" id="sumar_get_txt2">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <!-- Establecer LabelOperador a + -->
+          <block type="component_set" id="sumar_set_op">
+            <mutation component_type="Label" property_name="Text" instance_name="LabelOperador"/>
+            <field name="COMPONENT_SELECTOR">LabelOperador</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text" id="sumar_plus_text">
+                <field name="TEXT">+</field>
+              </block>
+            </value>
+            <next>
+              <!-- Calcular resultado: Numero1 + Numero2 -->
+              <block type="component_set" id="sumar_set_result">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelResultado"/>
+                <field name="COMPONENT_SELECTOR">LabelResultado</field>
+                <field name="PROP">Text</field>
+                <value name="VALUE">
+                  <block type="text_join" id="sumar_join">
+                    <mutation items="4"/>
+                    <value name="ADD0">
+                      <block type="component_get" id="sumar_r_get1">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="ADD1">
+                      <block type="text" id="sumar_r_plus">
+                        <field name="TEXT"> + </field>
+                      </block>
+                    </value>
+                    <value name="ADD2">
+                      <block type="component_get" id="sumar_r_get2">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="ADD3">
+                      <block type="text_join" id="sumar_r_eq">
+                        <mutation items="2"/>
+                        <value name="ADD0">
+                          <block type="text" id="sumar_r_eq_text">
+                            <field name="TEXT"> = </field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="math_arithmetic" id="sumar_calc">
+                            <field name="OP">ADD</field>
+                            <value name="A">
+                              <block type="component_get" id="sumar_c_get1">
+                                <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                                <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="component_get" id="sumar_c_get2">
+                                <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                                <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <!-- Agregar al historial -->
+                  <block type="component_set" id="sumar_historial">
+                    <mutation component_type="Label" property_name="Text" instance_name="LabelHistorialContenido"/>
+                    <field name="COMPONENT_SELECTOR">LabelHistorialContenido</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text_join" id="sumar_hist_join">
+                        <mutation items="3"/>
+                        <value name="ADD0">
+                          <block type="component_get" id="sumar_h_get">
+                            <mutation component_type="Label" property_name="Text" instance_name="LabelResultado"/>
+                            <field name="COMPONENT_SELECTOR">LabelResultado</field>
+                            <field name="PROP">Text</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="text" id="sumar_h_newline">
+                            <field name="TEXT">
+</field>
+                          </block>
+                        </value>
+                        <value name="ADD2">
+                          <block type="component_get" id="sumar_h_prev">
+                            <mutation component_type="Label" property_name="Text" instance_name="LabelHistorialContenido"/>
+                            <field name="COMPONENT_SELECTOR">LabelHistorialContenido</field>
+                            <field name="PROP">Text</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_method" id="sumar_notif">
+            <mutation component_type="Notifier" method_name="ShowAlert" instance_name="Notifier1"/>
+            <field name="COMPONENT_SELECTOR">Notifier1</field>
+            <value name="ARG0">
+              <block type="text" id="sumar_notif_text">
+                <field name="TEXT">Por favor ingresa ambos numeros</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+
+  <!-- ============================================== -->
+  <!-- BLOQUE: Boton Restar - Click                   -->
+  <!-- Resta los dos numeros y muestra el resultado   -->
+  <!-- ============================================== -->
+  <block type="component_event" id="restar_click" x="0" y="350">
+    <mutation component_type="Button" instance_name="ButtonRestar" event_name="Click"/>
+    <field name="COMPONENT_SELECTOR">ButtonRestar</field>
+    <statement name="DO">
+      <block type="controls_if" id="restar_if">
+        <mutation elseif="0" else="1"/>
+        <value name="IF0">
+          <block type="logic_operation" id="restar_and">
+            <field name="OP">AND</field>
+            <value name="A">
+              <block type="logic_negate" id="restar_not1">
+                <value name="BOOL">
+                  <block type="text_isEmpty" id="restar_empty1">
+                    <value name="VALUE">
+                      <block type="component_get" id="restar_get_txt1">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_negate" id="restar_not2">
+                <value name="BOOL">
+                  <block type="text_isEmpty" id="restar_empty2">
+                    <value name="VALUE">
+                      <block type="component_get" id="restar_get_txt2">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="component_set" id="restar_set_op">
+            <mutation component_type="Label" property_name="Text" instance_name="LabelOperador"/>
+            <field name="COMPONENT_SELECTOR">LabelOperador</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text" id="restar_minus_text">
+                <field name="TEXT">-</field>
+              </block>
+            </value>
+            <next>
+              <block type="component_set" id="restar_set_result">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelResultado"/>
+                <field name="COMPONENT_SELECTOR">LabelResultado</field>
+                <field name="PROP">Text</field>
+                <value name="VALUE">
+                  <block type="text_join" id="restar_join">
+                    <mutation items="4"/>
+                    <value name="ADD0">
+                      <block type="component_get" id="restar_r_get1">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="ADD1">
+                      <block type="text" id="restar_r_minus">
+                        <field name="TEXT"> - </field>
+                      </block>
+                    </value>
+                    <value name="ADD2">
+                      <block type="component_get" id="restar_r_get2">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="ADD3">
+                      <block type="text_join" id="restar_r_eq">
+                        <mutation items="2"/>
+                        <value name="ADD0">
+                          <block type="text" id="restar_r_eq_text">
+                            <field name="TEXT"> = </field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="math_arithmetic" id="restar_calc">
+                            <field name="OP">MINUS</field>
+                            <value name="A">
+                              <block type="component_get" id="restar_c_get1">
+                                <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                                <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="component_get" id="restar_c_get2">
+                                <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                                <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set" id="restar_historial">
+                    <mutation component_type="Label" property_name="Text" instance_name="LabelHistorialContenido"/>
+                    <field name="COMPONENT_SELECTOR">LabelHistorialContenido</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text_join" id="restar_hist_join">
+                        <mutation items="3"/>
+                        <value name="ADD0">
+                          <block type="component_get" id="restar_h_get">
+                            <mutation component_type="Label" property_name="Text" instance_name="LabelResultado"/>
+                            <field name="COMPONENT_SELECTOR">LabelResultado</field>
+                            <field name="PROP">Text</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="text" id="restar_h_newline">
+                            <field name="TEXT">
+</field>
+                          </block>
+                        </value>
+                        <value name="ADD2">
+                          <block type="component_get" id="restar_h_prev">
+                            <mutation component_type="Label" property_name="Text" instance_name="LabelHistorialContenido"/>
+                            <field name="COMPONENT_SELECTOR">LabelHistorialContenido</field>
+                            <field name="PROP">Text</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_method" id="restar_notif">
+            <mutation component_type="Notifier" method_name="ShowAlert" instance_name="Notifier1"/>
+            <field name="COMPONENT_SELECTOR">Notifier1</field>
+            <value name="ARG0">
+              <block type="text" id="restar_notif_text">
+                <field name="TEXT">Por favor ingresa ambos numeros</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+
+  <!-- ============================================== -->
+  <!-- BLOQUE: Boton Multiplicar - Click              -->
+  <!-- Multiplica los dos numeros                     -->
+  <!-- ============================================== -->
+  <block type="component_event" id="multiplicar_click" x="0" y="700">
+    <mutation component_type="Button" instance_name="ButtonMultiplicar" event_name="Click"/>
+    <field name="COMPONENT_SELECTOR">ButtonMultiplicar</field>
+    <statement name="DO">
+      <block type="controls_if" id="mult_if">
+        <mutation elseif="0" else="1"/>
+        <value name="IF0">
+          <block type="logic_operation" id="mult_and">
+            <field name="OP">AND</field>
+            <value name="A">
+              <block type="logic_negate" id="mult_not1">
+                <value name="BOOL">
+                  <block type="text_isEmpty" id="mult_empty1">
+                    <value name="VALUE">
+                      <block type="component_get" id="mult_get_txt1">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_negate" id="mult_not2">
+                <value name="BOOL">
+                  <block type="text_isEmpty" id="mult_empty2">
+                    <value name="VALUE">
+                      <block type="component_get" id="mult_get_txt2">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="component_set" id="mult_set_op">
+            <mutation component_type="Label" property_name="Text" instance_name="LabelOperador"/>
+            <field name="COMPONENT_SELECTOR">LabelOperador</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text" id="mult_times_text">
+                <field name="TEXT">x</field>
+              </block>
+            </value>
+            <next>
+              <block type="component_set" id="mult_set_result">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelResultado"/>
+                <field name="COMPONENT_SELECTOR">LabelResultado</field>
+                <field name="PROP">Text</field>
+                <value name="VALUE">
+                  <block type="text_join" id="mult_join">
+                    <mutation items="4"/>
+                    <value name="ADD0">
+                      <block type="component_get" id="mult_r_get1">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="ADD1">
+                      <block type="text" id="mult_r_times">
+                        <field name="TEXT"> x </field>
+                      </block>
+                    </value>
+                    <value name="ADD2">
+                      <block type="component_get" id="mult_r_get2">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="ADD3">
+                      <block type="text_join" id="mult_r_eq">
+                        <mutation items="2"/>
+                        <value name="ADD0">
+                          <block type="text" id="mult_r_eq_text">
+                            <field name="TEXT"> = </field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="math_arithmetic" id="mult_calc">
+                            <field name="OP">MULTIPLY</field>
+                            <value name="A">
+                              <block type="component_get" id="mult_c_get1">
+                                <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                                <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="component_get" id="mult_c_get2">
+                                <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                                <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set" id="mult_historial">
+                    <mutation component_type="Label" property_name="Text" instance_name="LabelHistorialContenido"/>
+                    <field name="COMPONENT_SELECTOR">LabelHistorialContenido</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text_join" id="mult_hist_join">
+                        <mutation items="3"/>
+                        <value name="ADD0">
+                          <block type="component_get" id="mult_h_get">
+                            <mutation component_type="Label" property_name="Text" instance_name="LabelResultado"/>
+                            <field name="COMPONENT_SELECTOR">LabelResultado</field>
+                            <field name="PROP">Text</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="text" id="mult_h_newline">
+                            <field name="TEXT">
+</field>
+                          </block>
+                        </value>
+                        <value name="ADD2">
+                          <block type="component_get" id="mult_h_prev">
+                            <mutation component_type="Label" property_name="Text" instance_name="LabelHistorialContenido"/>
+                            <field name="COMPONENT_SELECTOR">LabelHistorialContenido</field>
+                            <field name="PROP">Text</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_method" id="mult_notif">
+            <mutation component_type="Notifier" method_name="ShowAlert" instance_name="Notifier1"/>
+            <field name="COMPONENT_SELECTOR">Notifier1</field>
+            <value name="ARG0">
+              <block type="text" id="mult_notif_text">
+                <field name="TEXT">Por favor ingresa ambos numeros</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+
+  <!-- ============================================== -->
+  <!-- BLOQUE: Boton Dividir - Click                  -->
+  <!-- Divide los dos numeros con validacion de /0    -->
+  <!-- ============================================== -->
+  <block type="component_event" id="dividir_click" x="0" y="1050">
+    <mutation component_type="Button" instance_name="ButtonDividir" event_name="Click"/>
+    <field name="COMPONENT_SELECTOR">ButtonDividir</field>
+    <statement name="DO">
+      <block type="controls_if" id="div_if_main">
+        <mutation elseif="0" else="1"/>
+        <value name="IF0">
+          <block type="logic_operation" id="div_and">
+            <field name="OP">AND</field>
+            <value name="A">
+              <block type="logic_negate" id="div_not1">
+                <value name="BOOL">
+                  <block type="text_isEmpty" id="div_empty1">
+                    <value name="VALUE">
+                      <block type="component_get" id="div_get_txt1">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_negate" id="div_not2">
+                <value name="BOOL">
+                  <block type="text_isEmpty" id="div_empty2">
+                    <value name="VALUE">
+                      <block type="component_get" id="div_get_txt2">
+                        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                        <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <!-- Verificar division por cero -->
+          <block type="controls_if" id="div_zero_check">
+            <mutation elseif="0" else="1"/>
+            <value name="IF0">
+              <block type="math_compare" id="div_zero_cmp">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="component_get" id="div_z_get">
+                    <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                    <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                    <field name="PROP">Text</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="div_z_zero">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <!-- Mostrar error: division por cero -->
+              <block type="component_method" id="div_zero_notif">
+                <mutation component_type="Notifier" method_name="ShowAlert" instance_name="Notifier1"/>
+                <field name="COMPONENT_SELECTOR">Notifier1</field>
+                <value name="ARG0">
+                  <block type="text" id="div_zero_text">
+                    <field name="TEXT">Error: No se puede dividir por cero</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <!-- Realizar la division -->
+              <block type="component_set" id="div_set_op">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelOperador"/>
+                <field name="COMPONENT_SELECTOR">LabelOperador</field>
+                <field name="PROP">Text</field>
+                <value name="VALUE">
+                  <block type="text" id="div_slash_text">
+                    <field name="TEXT">/</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set" id="div_set_result">
+                    <mutation component_type="Label" property_name="Text" instance_name="LabelResultado"/>
+                    <field name="COMPONENT_SELECTOR">LabelResultado</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text_join" id="div_join">
+                        <mutation items="4"/>
+                        <value name="ADD0">
+                          <block type="component_get" id="div_r_get1">
+                            <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                            <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                            <field name="PROP">Text</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="text" id="div_r_slash">
+                            <field name="TEXT"> / </field>
+                          </block>
+                        </value>
+                        <value name="ADD2">
+                          <block type="component_get" id="div_r_get2">
+                            <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                            <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                            <field name="PROP">Text</field>
+                          </block>
+                        </value>
+                        <value name="ADD3">
+                          <block type="text_join" id="div_r_eq">
+                            <mutation items="2"/>
+                            <value name="ADD0">
+                              <block type="text" id="div_r_eq_text">
+                                <field name="TEXT"> = </field>
+                              </block>
+                            </value>
+                            <value name="ADD1">
+                              <block type="math_arithmetic" id="div_calc">
+                                <field name="OP">DIVIDE</field>
+                                <value name="A">
+                                  <block type="component_get" id="div_c_get1">
+                                    <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+                                    <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+                                    <field name="PROP">Text</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="component_get" id="div_c_get2">
+                                    <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+                                    <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+                                    <field name="PROP">Text</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="component_set" id="div_historial">
+                        <mutation component_type="Label" property_name="Text" instance_name="LabelHistorialContenido"/>
+                        <field name="COMPONENT_SELECTOR">LabelHistorialContenido</field>
+                        <field name="PROP">Text</field>
+                        <value name="VALUE">
+                          <block type="text_join" id="div_hist_join">
+                            <mutation items="3"/>
+                            <value name="ADD0">
+                              <block type="component_get" id="div_h_get">
+                                <mutation component_type="Label" property_name="Text" instance_name="LabelResultado"/>
+                                <field name="COMPONENT_SELECTOR">LabelResultado</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                            <value name="ADD1">
+                              <block type="text" id="div_h_newline">
+                                <field name="TEXT">
+</field>
+                              </block>
+                            </value>
+                            <value name="ADD2">
+                              <block type="component_get" id="div_h_prev">
+                                <mutation component_type="Label" property_name="Text" instance_name="LabelHistorialContenido"/>
+                                <field name="COMPONENT_SELECTOR">LabelHistorialContenido</field>
+                                <field name="PROP">Text</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_method" id="div_notif">
+            <mutation component_type="Notifier" method_name="ShowAlert" instance_name="Notifier1"/>
+            <field name="COMPONENT_SELECTOR">Notifier1</field>
+            <value name="ARG0">
+              <block type="text" id="div_notif_text">
+                <field name="TEXT">Por favor ingresa ambos numeros</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+
+  <!-- ============================================== -->
+  <!-- BLOQUE: Boton Limpiar - Click                  -->
+  <!-- Limpia todos los campos y el historial         -->
+  <!-- ============================================== -->
+  <block type="component_event" id="limpiar_click" x="0" y="1500">
+    <mutation component_type="Button" instance_name="ButtonLimpiar" event_name="Click"/>
+    <field name="COMPONENT_SELECTOR">ButtonLimpiar</field>
+    <statement name="DO">
+      <!-- Limpiar TextBox 1 -->
+      <block type="component_set" id="limpiar_txt1">
+        <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero1"/>
+        <field name="COMPONENT_SELECTOR">TextBoxNumero1</field>
+        <field name="PROP">Text</field>
+        <value name="VALUE">
+          <block type="text" id="limpiar_txt1_empty">
+            <field name="TEXT"></field>
+          </block>
+        </value>
+        <next>
+          <!-- Limpiar TextBox 2 -->
+          <block type="component_set" id="limpiar_txt2">
+            <mutation component_type="TextBox" property_name="Text" instance_name="TextBoxNumero2"/>
+            <field name="COMPONENT_SELECTOR">TextBoxNumero2</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text" id="limpiar_txt2_empty">
+                <field name="TEXT"></field>
+              </block>
+            </value>
+            <next>
+              <!-- Limpiar Resultado -->
+              <block type="component_set" id="limpiar_result">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelResultado"/>
+                <field name="COMPONENT_SELECTOR">LabelResultado</field>
+                <field name="PROP">Text</field>
+                <value name="VALUE">
+                  <block type="text" id="limpiar_result_zero">
+                    <field name="TEXT">0</field>
+                  </block>
+                </value>
+                <next>
+                  <!-- Resetear operador -->
+                  <block type="component_set" id="limpiar_op">
+                    <mutation component_type="Label" property_name="Text" instance_name="LabelOperador"/>
+                    <field name="COMPONENT_SELECTOR">LabelOperador</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text" id="limpiar_op_plus">
+                        <field name="TEXT">+</field>
+                      </block>
+                    </value>
+                    <next>
+                      <!-- Limpiar historial -->
+                      <block type="component_set" id="limpiar_hist">
+                        <mutation component_type="Label" property_name="Text" instance_name="LabelHistorialContenido"/>
+                        <field name="COMPONENT_SELECTOR">LabelHistorialContenido</field>
+                        <field name="PROP">Text</field>
+                        <value name="VALUE">
+                          <block type="text" id="limpiar_hist_empty">
+                            <field name="TEXT"></field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
